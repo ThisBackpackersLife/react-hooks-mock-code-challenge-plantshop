@@ -13,7 +13,7 @@ function PlantPage() {
 
   const [ plantsOutOfStock, setPlantsOutOfStock ] = useState([])
 
-  const [ searchPlants, setSearchPlants ] = useState([])
+  const [ searchPlants, setSearchPlants ] = useState( "" )
 
   useEffect( fetchPlants, [] )
 
@@ -43,12 +43,14 @@ function PlantPage() {
     setPlantsOutOfStock([...plantsOutOfStock, id])
   }
 
-  function filterPlants( id ) {
-    const filteredPlants = plantListings.filter( plant => {
-      plant.id === id ? setSearchPlants([...filteredPlants]) : plantListings
-      
-    })
+
+  function changeSearchPlants( e ) {
+    setSearchPlants( e.target.value )
   }
+  
+    const filteredPlants = plantListings.filter( plant => 
+      plant.name.toLowerCase().includes( searchPlants.toLowerCase()))
+
 
   return (
     <main>
@@ -56,11 +58,11 @@ function PlantPage() {
         submitPlantForm={ submitPlantForm }
       />
       <Search 
-        filterPlants={ filterPlants }
+        changeSearchPlants={ changeSearchPlants }
         searchPlants={ searchPlants }
       />
       <PlantList 
-        plantListings={ plantListings } 
+        plantListings={ filteredPlants } 
         markOutOfStock={ markOutOfStock }
         plantsOutOfStock={ plantsOutOfStock }
       />
