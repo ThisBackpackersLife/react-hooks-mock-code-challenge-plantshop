@@ -1,13 +1,16 @@
 import React from "react";
 import PlantCard from "./PlantCard";
 
-function PlantList({ plantListings }) {
-  console.log(plantListings)
+function PlantList({ plantListings, markOutOfStock, plantsOutOfStock }) {
+
+   
 
   const renderPlantCard = plantListings.map( plant =>
       <PlantCard 
         key={ plant.id }
         plant={ plant }
+        markOutOfStock={ markOutOfStock }
+        plantsOutOfStock={ plantsOutOfStock }
       />
   )
   return (
@@ -20,5 +23,3 @@ function PlantList({ plantListings }) {
 }
 
 export default PlantList;
-
-// { renderPlantListings }
